@@ -40,7 +40,7 @@ function HandleTriviaStart()
 function startGame()
 {
     //console.log("start!")
-    //song.play();
+    song.play();
     $("#startButton").hide();
     $("#middleSection").show();
     //start the timer for the question
@@ -108,12 +108,13 @@ function handleAnswer(whichButton)
         questionCounter++;
         PostQuestion();
         CountDown();
-    }, 1000);
+    }, 5000);
 
     //if we've reached the end of the game we need to give the user the option to reset.
     console.log(questionCounter);
     if(questionCounter === 4)
     {
+        $(".paragraph").hide();
         $("#time-remaining").hide();
         $("#question").hide();
         $("#answer1").hide();
@@ -121,14 +122,16 @@ function handleAnswer(whichButton)
         $("#answer3").hide();
         $("#answer4").hide();
         var resetGameButton = $("<button class='btn btn-primary resetButton' data-answer='-1'>Reset Game?</button>");
-        var answeredCorrectlyParagraph = $("<p align='center' class='paragraph' id='answeredCorrectlyParagraph'>Questions Answered Correctly: </p>");
-        $("#answeredCorrectlyParagraph").html = answeredCorrectly;
-        var answeredIncorrectlyParagraph = $("<p align='center' class='paragraph' id='answeredIncorrectlyParagraph'>Questions Answered Incorrectly: </p>");
-        var missedAnswerParagraph = $("<p align='center' class='paragraph' id='missedAnswerParagraph'>Missed Answers: </p>");
+        var answeredCorrectlyParagraph = $("<p align='center' class='answeredCorrectlyID paragraph'>Questions Answered Correctly: </p>");
+        var answeredIncorrectlyParagraph = $("<p align='center' class='answeredIncorrectlyID paragraph'>Questions Answered Incorrectly: </p>");
+        var missedAnswerParagraph = $("<p align='center' class='missedAnswerID paragraph'>Missed Answers: </p>");
         $("#mainTriviaBody").append(answeredCorrectlyParagraph);
         $("#mainTriviaBody").append(answeredIncorrectlyParagraph);
         $("#mainTriviaBody").append(missedAnswerParagraph);
         $("#mainTriviaBody").append(resetGameButton);
+        $(".answeredCorrectlyID").append(answeredCorrectly);
+        $(".answeredIncorrectlyID").append(answeredIncorrectly);
+        $(".missedAnswerID").append(missedAnswer);
         clearTimeout(timeout);
     }
 }
